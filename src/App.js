@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes >
           <Route path="/" element={<Home />} />
-          <Route path="artistInfo" element={<ArtistInfo />} />
+          <Route path="artistInfo/:artistId" element={<ArtistInfo />} />
         </Routes>
       </BrowserRouter>
     </>

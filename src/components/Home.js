@@ -14,6 +14,8 @@ const Home = () => {
   const [filteredArtist, setFilteredArtist] = useState('')
   //Generates a random id between 1-10
   const [randomTrackId, setRandomTrackId] = useState('')
+  
+  
 
   // GET THE TOP ARTISTS
   // Saves ten artists to topArtists
@@ -124,12 +126,12 @@ const handleClick = () => {
       <div className='container'>
         <h2>TopTop</h2>
         {topSong && randomTrackId ?
-          <div className='audio-container'>
+          <div className='object-container'>
             <h1>{topSong.tracks[randomTrackId].artistName}</h1>
             <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/300x300.jpg`}  alt="something"/>
             <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
             <button className='similarartist' onClick={handleClick}>Similar Artist Song</button>
-            <Link to="artistInfo" similarArtist={similarArtist} className='btn btn-primary'>Show more more info about the similar artist</Link>
+            <Link to={`artistInfo/${filteredArtist}`} className='btn btn-primary'>Show More Info</Link>
             <button className='randomArtist' onClick={setRandomArtist}>Random Artist</button>
           </div>
           : hasError.message
