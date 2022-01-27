@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Home = () => {
 
   //Top songs of an artist
-  const [topSong, setTopSong] = useState(null) 
+  const [topSong, setTopSong] = useState(null)
   //Top artists
   const [topArtists, setTopArtists] = useState(null)
   const [similarArtist, setSimilarArtist] = useState(null)
@@ -14,8 +14,8 @@ const Home = () => {
   const [filteredArtist, setFilteredArtist] = useState('')
   //Generates a random id between 1-10
   const [randomTrackId, setRandomTrackId] = useState('')
-  
-  
+
+
 
   // GET THE TOP ARTISTS
   // Saves ten artists to topArtists
@@ -37,18 +37,19 @@ const Home = () => {
   // A random function will pick an artist ID from topArtists and pass it on to filteredArtist
 
 
-const setRandomArtist = () => {
-  if (topArtists) {
-    const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
-    setFilteredArtist(response)
+  const setRandomArtist = () => {
+    if (topArtists) {
+      const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
+      setFilteredArtist(response)
+    }
   }
-}
 
   useEffect(() => {
     if (topArtists) {
       const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
       setFilteredArtist(response)
-  }},[topArtists])
+    }
+  }, [topArtists])
 
 
   // GET THE TOPSONG OF THE FILTERED ARTIST
@@ -73,66 +74,80 @@ const setRandomArtist = () => {
   }, [filteredArtist])
 
 
-//function that takes the filteredArtist
-// saves the album id of the song in a state
+  //function that takes the filteredArtist
+  // saves the album id of the song in a state
 
-// show the album cover related to the album id
-// which requires pinging another endpoint
-const getRandomTrackId = () => {
+  // show the album cover related to the album id
+  // which requires pinging another endpoint
+  const getRandomTrackId = () => {
 
-  const randomTrackId = (Math.floor(Math.random() * 10))+1 // that should be later based on the array length of the track
-  setRandomTrackId(randomTrackId)
-  // console.log(randomTrackId)
+    const randomTrackId = (Math.floor(Math.random() * 10)) + 1 // that should be later based on the array length of the track
+    setRandomTrackId(randomTrackId)
+    // console.log(randomTrackId)
 
-}
-
-// -- BREAKPOINT --
-
-// make a call to this endpoint passing on the ID of filteredArtist http://api.napster.com/v2.2/artists/{artistID}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4
-// The response of endpoint will be a list of artists that are similar
-// Select the top artists from the top that is similar
-// set this to filteredArtists
-
-
-useEffect(() => {
-  const getSimilarArtists = async () => {
-    try {
-      if (filteredArtist) {
-      const { data } = await axios.get(`http://api.napster.com/v2.2/artists/${filteredArtist}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
-      console.log('SIMILAR ARTIST',data)
-      setSimilarArtist(data)
-    }
-    } catch (err) {
-      setHasError({ error: true, message: err.message })
-      console.log('ERROR HERE from get top artists', err.message)
-    }
   }
-  getSimilarArtists()
-}, [filteredArtist])
 
-// getRandomTrackId()
+  // -- BREAKPOINT --
 
-const handleClick = () => {
+  // make a call to this endpoint passing on the ID of filteredArtist http://api.napster.com/v2.2/artists/{artistID}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4
+  // The response of endpoint will be a list of artists that are similar
+  // Select the top artists from the top that is similar
+  // set this to filteredArtists
 
-  const similarArtistClick = similarArtist.artists[Math.floor(Math.random() * similarArtist.artists.length)].id
-  setFilteredArtist(similarArtistClick)
-  console.log('on click similar artist',similarArtist.artists[3].id)
-}
+
+  useEffect(() => {
+    const getSimilarArtists = async () => {
+      try {
+        if (filteredArtist) {
+          const { data } = await axios.get(`http://api.napster.com/v2.2/artists/${filteredArtist}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
+          console.log('SIMILAR ARTIST', data)
+          setSimilarArtist(data)
+        }
+      } catch (err) {
+        setHasError({ error: true, message: err.message })
+        console.log('ERROR HERE from get top artists', err.message)
+      }
+    }
+    getSimilarArtists()
+  }, [filteredArtist])
+
+  // getRandomTrackId()
+
+  const handleClick = () => {
+
+    const similarArtistClick = similarArtist.artists[Math.floor(Math.random() * similarArtist.artists.length)].id
+    setFilteredArtist(similarArtistClick)
+    console.log('on click similar artist', similarArtist.artists[3].id)
+  }
 
 
   return (
 
     <>
       <div className='container'>
-        <h2>TopTop</h2>
+        <h2 className='title'>TOPTOP</h2>
         {topSong && randomTrackId ?
+        
+        
           <div className='object-container'>
-            <h1>{topSong.tracks[randomTrackId].artistName}</h1>
-            <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/300x300.jpg`}  alt="something"/>
-            <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
-            <button className='similarartist' onClick={handleClick}>Similar Artist Song</button>
-            <Link to={`artistInfo/${filteredArtist}`} className='btn btn-primary'>Show More Info</Link>
-            <button className='randomArtist' onClick={setRandomArtist}>Random Artist</button>
+
+            <div className='randomArtist-container'>
+              <button className='randomArtist' onClick={setRandomArtist}>Random Artist</button>
+            </div>
+            
+            <div className='mid-section'>
+              <h1>{topSong.tracks[randomTrackId].artistName}</h1>
+              <Link to={`artistInfo/${filteredArtist}`} className='link'>Read More On   ⇾  {topSong.tracks[randomTrackId].artistName}</Link>
+              <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg`} alt="something" />
+              <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
+            </div>
+
+            <div className='similarArtist-container'>
+              <button className='similarartist' onClick={handleClick}>Similar Artist Song</button>
+            </div>
+
+
+
           </div>
           : hasError.message
         }

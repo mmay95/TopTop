@@ -1,6 +1,6 @@
-import Reac, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const ArtistInfo = () => {
 
@@ -27,17 +27,17 @@ const ArtistInfo = () => {
 
   return (
 
-
-
-
-    <>
-      
+    <>    
         {artistText ? 
         <div className='container'>
-          <h1>Artist Name:{artistText.artists[0].blurbs[2]} </h1>
-          <h2>Blurb</h2>
-          <h2>Bio</h2>
-          <p>albums</p>
+          <img src={`https://direct.rhapsody.com/imageserver/v2/artists/${artistId}/images/300x300.jpg`} alt={artistId}/>
+          <h1>{artistText.artists[0].name}</h1>
+              {artistText.artists[0].blurbs && artistText.artists[0].blurbs.map((element,id) => {
+                return (
+                <p key={id}>{element}</p>
+                )
+              })}
+      <Link to={`/`} className='btn btn-primary'>Back to Music Player</Link>
         </div>
       :
       <div>loading</div> 
