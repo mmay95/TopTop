@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -117,6 +117,7 @@ const handleClick = () => {
   console.log('on click similar artist',similarArtist.artists[3].id)
 }
 
+
   return (
 
     <>
@@ -128,6 +129,8 @@ const handleClick = () => {
             <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/300x300.jpg`}  alt="something"/>
             <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
             <button className='similarartist' onClick={handleClick}>Similar Artist Song</button>
+            <Link to="artistInfo" similarArtist={similarArtist} className='btn btn-primary'>Show more more info about the similar artist</Link>
+            <button className='randomArtist' onClick={setRandomArtist}>Random Artist</button>
           </div>
           : hasError.message
         }
