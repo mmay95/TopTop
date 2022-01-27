@@ -110,6 +110,13 @@ useEffect(() => {
 
 // getRandomTrackId()
 
+const handleClick = () => {
+
+  const similarArtistClick = similarArtist.artists[Math.floor(Math.random() * similarArtist.artists.length)].id
+  setFilteredArtist(similarArtistClick)
+  console.log('on click similar artist',similarArtist.artists[3].id)
+}
+
   return (
 
     <>
@@ -120,7 +127,7 @@ useEffect(() => {
             <h1>{topSong.tracks[randomTrackId].artistName}</h1>
             <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/300x300.jpg`}  alt="something"/>
             <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
-            <button className='similarartist'>Similar Artist Song</button>
+            <button className='similarartist' onClick={handleClick}>Similar Artist Song</button>
           </div>
           : hasError.message
         }
