@@ -16,7 +16,6 @@ const Home = () => {
   const [randomTrackId, setRandomTrackId] = useState('')
 
 
-
   // GET THE TOP ARTISTS
   // Saves ten artists to topArtists
   useEffect(() => {
@@ -119,39 +118,37 @@ const Home = () => {
     setFilteredArtist(similarArtistClick)
     console.log('on click similar artist', similarArtist.artists[3].id)
   }
-
-
   return (
-
     <>
-      <div className='container'>
-        <h2 className='title'>TOPTOP</h2>
-        {topSong && randomTrackId ?
-        
-        
+      {topSong && randomTrackId ?
+
+        <div className='container'>
+
           <div className='object-container'>
 
             <div className='randomArtist-container'>
               <button className='randomArtist' onClick={setRandomArtist}>Random Artist</button>
             </div>
-            
+
             <div className='mid-section'>
               <h1>{topSong.tracks[randomTrackId].artistName}</h1>
-              <Link to={`artistInfo/${filteredArtist}`} className='link'>Read More On   ⇾  {topSong.tracks[randomTrackId].artistName}</Link>
+              <Link to={`artistInfo/${filteredArtist}`} className='link'>Read More About The Artist &rarr;</Link>
               <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg`} alt="something" />
               <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
             </div>
 
             <div className='similarArtist-container'>
-              <button className='similarartist' onClick={handleClick}>Similar Artist Song</button>
+              <button className='similarartist' onClick={handleClick}>Similar Artist</button>
             </div>
 
-
-
           </div>
-          : hasError.message
-        }
-      </div>
+          <div className='bg-blur' style={{ backgroundImage: `url(http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg) ` }}></div>
+        </div>
+
+
+        :
+        hasError.message
+      }
     </>
   )
 }

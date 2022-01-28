@@ -29,15 +29,15 @@ const ArtistInfo = () => {
 
     <>    
         {artistText ? 
-        <div className='container'>
-          <img src={`https://direct.rhapsody.com/imageserver/v2/artists/${artistId}/images/300x300.jpg`} alt={artistId}/>
-          <h1>{artistText.artists[0].name}</h1>
+        <div className='container-artistInfo'>
+          <img src={`https://direct.rhapsody.com/imageserver/v2/artists/${artistId}/images/600x600.jpg`} alt={artistId}/>
+          <h1 className='artistInfo-title'>{artistText.artists[0].name}</h1>
               {artistText.artists[0].blurbs && artistText.artists[0].blurbs.map((element,id) => {
                 return (
                 <p key={id}>{element}</p>
                 )
               })}
-      <Link to={`/`} className='btn btn-primary'>Back to Music Player</Link>
+      <Link to={`/`} className='link'>&larr; Back to Music Player</Link>
         </div>
       :
       <div>loading</div> 
