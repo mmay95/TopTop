@@ -12,7 +12,7 @@ const ArtistInfo = () => {
   useEffect(() => {
     const getArtistInfo = async () => {
       try {
-        const { data } = await axios.get(`http://api.napster.com/v2.2/artists/${artistId}?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
+        const { data } = await axios.get(`https://api.napster.com/v2.2/artists/${artistId}?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
 
         setArtistText(data)
       } catch (err) {

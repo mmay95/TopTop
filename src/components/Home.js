@@ -61,7 +61,7 @@ const Home = () => {
     const getSimilarArtists = async () => {
       try {
         if (filteredArtist) {
-          const { data } = await axios.get(`http://api.napster.com/v2.2/artists/${filteredArtist}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
+          const { data } = await axios.get(`https://api.napster.com/v2.2/artists/${filteredArtist}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
           setSimilarArtist(data)
         }
       } catch (err) {
@@ -122,7 +122,7 @@ const Home = () => {
               <h1>{topSong.tracks[randomTrackId].artistName}</h1>
               <h2>{topSong.tracks[randomTrackId].name}</h2>
               <Link to={`artistInfo/${filteredArtist}`} className='link'>Read More About The Artist &rarr;</Link>
-              <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg`} alt="something" />
+              <img src={`https://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg`} alt="something" />
               <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>
             </div>
 
@@ -131,7 +131,7 @@ const Home = () => {
             </div>
 
           </div>
-          <div className='bg-blur' style={{ backgroundImage: `url(http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg) ` }}></div>
+          <div className='bg-blur' style={{ backgroundImage: `url(https://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg) ` }}></div>
         </div>
 
 
