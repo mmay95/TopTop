@@ -39,10 +39,10 @@ h1 {
 h2{
   color: $orange;
   font-family: 'Rubik', sans-serif;
-  font-weight: bold;
-  font-size: 45px;
+  font-weight: 300;
+  font-size: 35px;
   text-align: center;
-  margin-top: 100px
+  margin-top: 10px;
 }
 
 .artistInfo-title{
@@ -53,6 +53,21 @@ h2{
 p{
   margin: 2px auto;
   line-height: 25px;
+}
+
+.error {
+  margin: 100px auto;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Nunito', sans-serif;
+  color: white;
+  line-height: 20px;
+}
+
+.wait{
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
 }
 
 .container-artistInfo {
@@ -123,7 +138,7 @@ p{
     border-radius: 50%;
   }
   audio::-webkit-media-controls-mute-button:hover {
-    background-color: #00FFCB;
+    background-color: rgba(129,230,217,1);
   }
 
   audio::-webkit-media-controls-play-button {
@@ -132,7 +147,7 @@ p{
   }
   
   audio::-webkit-media-controls-play-button:hover {
-    background-color: #00FFCB;
+    background-color: rgba(129,230,217,1);
   }
 
     button {
@@ -154,7 +169,7 @@ p{
       outline: none;
       position: relative;
       padding: 10px;
-      margin-top:100px;
+      margin-top:140px;
       }
     
     button::before {

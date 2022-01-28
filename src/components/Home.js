@@ -23,33 +23,12 @@ const Home = () => {
       try {
         const { data } = await axios.get('https://api.napster.com/v2.2/artists/top?apikey=M2IwZmM5MjctNDAwOS00ZDk1LThjYTktZTU4ZGE4NzQzZjUz')
         setTopArtists(data)
-        setRandomArtist()
       } catch (err) {
         setHasError({ error: true, message: err.message })
-        console.log('ERROR HERE from get top artists', err.message)
       }
     }
     getTopArtists()
   }, [])
-
-  //GIVE US A RANDOM ARTIST ID FROM TOPARTISTS
-  // A random function will pick an artist ID from topArtists and pass it on to filteredArtist
-
-
-  const setRandomArtist = () => {
-    if (topArtists) {
-      const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
-      setFilteredArtist(response)
-    }
-  }
-
-  useEffect(() => {
-    if (topArtists) {
-      const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
-      setFilteredArtist(response)
-    }
-  }, [topArtists])
-
 
   // GET THE TOPSONG OF THE FILTERED ARTIST
   // It will only run, if filteredArtist has been updated
@@ -59,32 +38,16 @@ const Home = () => {
         if (topArtists) {
           const { data } = await axios.get(`https://api.napster.com/v2.2/artists/${filteredArtist}/tracks/top?apikey=M2IwZmM5MjctNDAwOS00ZDk1LThjYTktZTU4ZGE4NzQzZjUz`)
           setTopSong(data)
-          console.log('TOP SONGS DATA', data)
           getRandomTrackId()
 
         }
         // console.log('THIS IS DATA', data)
       } catch (err) {
         setHasError({ error: true, message: err.message })
-        console.log('ERROR HERE from top songs', err.message)
       }
     }
     getTopSongs()
-  }, [filteredArtist])
-
-
-  //function that takes the filteredArtist
-  // saves the album id of the song in a state
-
-  // show the album cover related to the album id
-  // which requires pinging another endpoint
-  const getRandomTrackId = () => {
-
-    const randomTrackId = (Math.floor(Math.random() * 10)) + 1 // that should be later based on the array length of the track
-    setRandomTrackId(randomTrackId)
-    // console.log(randomTrackId)
-
-  }
+  }, [ filteredArtist ])
 
   // -- BREAKPOINT --
 
@@ -99,30 +62,55 @@ const Home = () => {
       try {
         if (filteredArtist) {
           const { data } = await axios.get(`http://api.napster.com/v2.2/artists/${filteredArtist}/similar?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4`)
-          console.log('SIMILAR ARTIST', data)
           setSimilarArtist(data)
         }
       } catch (err) {
         setHasError({ error: true, message: err.message })
-        console.log('ERROR HERE from get top artists', err.message)
       }
     }
     getSimilarArtists()
   }, [filteredArtist])
 
+
+  //function that takes the filteredArtist
+  // saves the album id of the song in a state
+
+  useEffect(() => {
+    if (topArtists) {
+      const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
+      setFilteredArtist(response)
+    }
+  }, [topArtists])
+
+
+  //GIVE US A RANDOM ARTIST ID FROM TOPARTISTS
+  // A random function will pick an artist ID from topArtists and pass it on to filteredArtist
+
+  const setRandomArtist = () => {
+    const response = topArtists.artists[Math.floor(Math.random() * topArtists.artists.length)].id
+    setFilteredArtist(response)
+  }
+
+  // show the album cover related to the album id
+  // which requires pinging another endpoint
+  const getRandomTrackId = () => {
+    const randomTrackId = (Math.floor(Math.random() * 10)) + 1 // that should be later based on the array length of the track
+    setRandomTrackId(randomTrackId)
+  }
+
   // getRandomTrackId()
 
   const handleClick = () => {
-
     const similarArtistClick = similarArtist.artists[Math.floor(Math.random() * similarArtist.artists.length)].id
     setFilteredArtist(similarArtistClick)
-    console.log('on click similar artist', similarArtist.artists[3].id)
   }
+
   return (
     <>
       {topSong && randomTrackId ?
 
         <div className='container'>
+
 
           <div className='object-container'>
 
@@ -132,6 +120,7 @@ const Home = () => {
 
             <div className='mid-section'>
               <h1>{topSong.tracks[randomTrackId].artistName}</h1>
+              <h2>{topSong.tracks[randomTrackId].name}</h2>
               <Link to={`artistInfo/${filteredArtist}`} className='link'>Read More About The Artist &rarr;</Link>
               <img src={`http://direct.rhapsody.com/imageserver/v2/albums/${topSong.tracks[randomTrackId].albumId}/images/600x600.jpg`} alt="something" />
               <audio src={topSong.tracks[randomTrackId].previewURL} controls>THIS AUDIO</audio>

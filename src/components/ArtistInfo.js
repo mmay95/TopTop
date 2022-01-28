@@ -9,8 +9,6 @@ const ArtistInfo = () => {
   const [hasError, setHasError] = useState({ error: false, message: '' })
   const { artistId } = useParams()
 
-  console.log('ARTIST ID', artistId)
-
   useEffect(() => {
     const getArtistInfo = async () => {
       try {
@@ -27,20 +25,24 @@ const ArtistInfo = () => {
 
   return (
 
-    <>    
-        {artistText ? 
+    <>
+      {artistText ?
         <div className='container-artistInfo'>
-          <img src={`https://direct.rhapsody.com/imageserver/v2/artists/${artistId}/images/600x600.jpg`} alt={artistId}/>
+          <img src={`https://direct.rhapsody.com/imageserver/v2/artists/${artistId}/images/600x600.jpg`} alt={artistId} />
           <h1 className='artistInfo-title'>{artistText.artists[0].name}</h1>
-              {artistText.artists[0].blurbs && artistText.artists[0].blurbs.map((element,id) => {
-                return (
-                <p key={id}>{element}</p>
-                )
-              })}
-      <Link to={`/`} className='link'>&larr; Back to Music Player</Link>
+          {artistText.artists[0].blurbs && artistText.artists[0].blurbs.map((element, id) => {
+            return (
+              <p key={id}>{element}</p>
+            )
+          })}
+          <Link to={`/`} className='link'>&larr; Back to Music Player</Link>
         </div>
-      :
-      <div>loading</div> 
+        :
+        <div className='error'>
+          <img className='wait' src="https://c.tenor.com/TV_4YtcPSUQAAAAC/wait-patience.gif" alt='waiting gif' />
+          <p>Woah there tiger, slow down a little! <br /> 
+            Your information is still loading</p>
+        </div>
       }
     </>
   )
